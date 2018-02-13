@@ -8,38 +8,38 @@ import (
 )
 
 func main() {
-  fileNamePtr := flag.String("f", "", "")
+      filename := flag.String("f", "", "The file path to count lines")
 
-  flag.Parse()
+      flag.Parse()
 
-  if len(*fileNamePtr) == 0 {
-    fmt.Println("you must pass -f=filepath")
-    return
-  }
-
-  fmt.Println("Counting line for file", *fileNamePtr)
-
-  f, err := os.Open(*fileNamePtr)
-  if err != nil {
-    fmt.Println(err)
-    return
-  }
-
-  defer f.Close()
-
-  bufferedReader := bufio.NewReader(f)
-
-  lineCounter := 0
-  for {
-    // 10 -> is new line (\n)
-    _, err := bufferedReader.ReadString(10)
-    if err != nil {
-      break
+    if len(*filename) == 0 {
+        fmt.Println("you must pass -f=filepath")
+        return
     }
 
-    lineCounter++
-  }
+    fmt.Println("Counting line for file", *filename, "...")
 
-  fmt.Println("file has", lineCounter, "lines")
+    f, err := os.Open(*filename)
+    if err != nil {
+        fmt.Println(err)
+        return
+    }
+
+    defer f.Close()
+
+    bufferedReader := bufio.NewReader(f)
+
+    lineCounter := 0
+    for {
+        // 10 -> is new line (\n)
+        _, err := bufferedReader.ReadString(10)
+        if err != nil {
+            break
+        }
+
+        lineCounter++
+    }
+
+    fmt.Println(*filename, "has", lineCounter, "lines")
 
 }
