@@ -17,7 +17,7 @@ func main() {
         return
     }
 
-    fmt.Println("Counting line for file", *filename, "...")
+    fmt.Println("Counting lines for file", *filename, "...")
 
     f, err := os.Open(*filename)
     if err != nil {
